@@ -66,7 +66,7 @@ router.post(
       // Return JWT token
       const payload = {
         user: {
-          // ongoose take care of changing default _id from MongoDB to id
+          // <ongoose take care of changing default _id from MongoDB to id
           id: user.id,
         },
       };
@@ -80,7 +80,7 @@ router.post(
         }
       );
     } catch (err) {
-      console.log(err.message);
+      console.error(err.message);
       res.status(500).send('Server error');
     }
   }
