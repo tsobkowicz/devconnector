@@ -3,8 +3,10 @@ const connectDB = require('./config/db');
 
 const app = express();
 
-// cConnect Database
+// Connect Database
 connectDB();
+// Init Middleware
+app.use(express.json());
 
 // test route
 app.get('/', (req, res) => res.send('API running'));
