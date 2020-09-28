@@ -4,7 +4,7 @@ const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
-const autMiddleware = require('../../middleware/auth');
+const authMiddleware = require('../../middleware/auth');
 
 const User = require('../../models/User');
 
@@ -13,7 +13,7 @@ const router = express.Router();
 // @route   GET api/auth
 // @desc    get user
 // @access  Private
-router.get('/', autMiddleware, async (req, res) => {
+router.get('/', authMiddleware, async (req, res) => {
   try {
     // req.user comes from authMiddleware
     const user = await User.findById(req.user.id).select('-password');
