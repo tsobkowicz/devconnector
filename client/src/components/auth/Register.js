@@ -1,6 +1,8 @@
 /* eslint-disable no-console */
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setAlert } from '../../actions/alert';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -12,6 +14,8 @@ const Register = () => {
 
   const { name, email, password, password2 } = formData;
 
+  const dispatch = useDispatch();
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -19,26 +23,9 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== password2) {
-      console.log('Passwords do not match');
+      dispatch(setAlert('Passwords do not match', 'danger'));
     } else {
       console.log('Success');
-      // const newUser = {
-      //   name,
-      //   email,
-      //   password,
-      // };
-      // try {
-      //   const config = {
-      //     headers: {
-      //       'Content-Type': 'application/json',
-      //     },
-      //   };
-      //   const body = JSON.stringify(newUser);
-      //   const res = await axios.post('/api/users', body, config);
-      //   console.log(res.data);
-      // } catch (err) {
-      //   console.error(err.response.data);
-      // }
     }
   };
 
