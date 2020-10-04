@@ -1,6 +1,8 @@
 /* eslint-disable no-console */
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../../actions/auth';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -10,14 +12,22 @@ const Login = () => {
 
   const { email, password } = formData;
 
+  const dispatch = useDispatch();
+
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('success');
+    dispatch(login(email, password));
   };
+
+  if (isAuthenticated) {
+    return <Redirect to="/dashboard" />;
+  }
 
   return (
     <>
