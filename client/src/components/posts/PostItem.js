@@ -1,9 +1,9 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import {} from '../../actions/post';
 import Moment from 'react-moment';
 import PropTypes from 'prop-types';
+import { addLike, removeLike } from '../../actions/post';
 
 const PostItem = ({
   post: { _id, text, name, avatar, user, likes, comments, date },
@@ -28,11 +28,19 @@ const PostItem = ({
 
         {showActions && (
           <>
-            <button type="button" className="btn btn-light">
+            <button
+              onClick={() => dispatch(addLike(_id))}
+              type="button"
+              className="btn btn-light"
+            >
               <i className="fas fa-thumbs-up" />{' '}
               <span>{likes.length > 0 && <span>{likes.length}</span>}</span>
             </button>
-            <button type="button" className="btn btn-light">
+            <button
+              onClick={() => dispatch(removeLike(_id))}
+              type="button"
+              className="btn btn-light"
+            >
               <i className="fas fa-thumbs-down" />
             </button>
             <Link to={`/posts/${_id}`} className="btn btn-primary">
